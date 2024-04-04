@@ -46,5 +46,7 @@ Plug('https://github.com/safv12/andromeda.vim')
 Plug('https://github.com/cesardeazevedo/Fx-ColorScheme')
 Plug('daltonmenezes/aura-theme', { rtp = 'packages/neovim' })
 Plug('https://github.com/navarasu/onedark.nvim')
+Plug('https://github.com/eskilop/NorthernLights.vim')
+Plug('https://github.com/polirritmico/monokai-nightasty.nvim')
 
 vim.call('plug#end')

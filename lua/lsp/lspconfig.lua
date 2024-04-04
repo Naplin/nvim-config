@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-	ensure_installed = { 'ocamllsp', 'lua_ls', 'pyright' }
+	ensure_installed = { 'ocamllsp', 'lua_ls', 'pyright', 'cssls' }
 })
 
 local on_attach = function(_, _)
@@ -21,6 +21,10 @@ require('lspconfig').lua_ls.setup {
 	on_attach = on_attach
 }
 require('lspconfig').pyright.setup {
+	capabilities = capabilities,
+	on_attach = on_attach
+}
+require('lspconfig').cssls.setup {
 	capabilities = capabilities,
 	on_attach = on_attach
 }
