@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd('BufEnter',  { callback = function()
 	if filetype == 'python' then
 		lang_interpreter = 'python3'
 	end
-	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..lang_interpreter..' '..filename..'<CR>')
+	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..lang_interpreter..' '..filename..'<CR>'..[[<c-\><c-n>:call SwitchToTerminal()<CR>]])
 end })
 
 
