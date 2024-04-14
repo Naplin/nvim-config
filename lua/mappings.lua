@@ -74,7 +74,8 @@ vim.api.nvim_create_autocmd('BufEnter',  { callback = function()
 	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..lang_interpreter..' '..filename..'<CR>'..[[<c-\><c-n>:call SwitchToTerminal()<CR>]])
 end })
 
-
+require('./colours')
+vim.cmd('command! LightToggle lua LightToggle()')
 
 -- Toggle terminal on/off (neovim)
 vim.keymap.set('n', 't', ':call SwitchToTerminal()<CR>')
@@ -107,6 +108,9 @@ vim.keymap.set('t', '<Esc>', [[<c-\><c-n>:call SwitchToTerminal()<CR>]])
 vim.keymap.set('n', '<Esc>', [[:wincmd 2 w<CR>]])
 
 vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'.._G.filetype.._G.filename..'<CR>')
+
+vim.keymap.set('n', '<c-l>', ':LightToggle<CR>')
+vim.keymap.set('i', '<c-l>', '<Esc>:LightToggle<CR>')
 
 -- Terminal go back to normal mode
 -- tnoremap <Esc> <C-\><C-n>

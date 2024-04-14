@@ -3,7 +3,6 @@ require('mappings')
 require('lsp.lspconfig')
 require('completions')
 require('lualine').setup()
---require('colours')
 
 vim.cmd.colorscheme('oxocarbon')
 
