@@ -13,6 +13,8 @@ Plug('https://github.com/jpalardy/vim-slime')
 Plug('https://github.com/OCamlPro/ocp-indent')
 Plug('https://github.com/nvim-lualine/lualine.nvim')
 Plug('nvim-tree/nvim-web-devicons')
+Plug('https://github.com/chrisbra/Colorizer')
+Plug('https://github.com/vim-scripts/DirDo.vim')
 
 -- Languages
 Plug('https://github.com/ocaml/vim-ocaml')
@@ -48,5 +50,6 @@ Plug('daltonmenezes/aura-theme', { rtp = 'packages/neovim' })
 Plug('https://github.com/navarasu/onedark.nvim')
 Plug('https://github.com/eskilop/NorthernLights.vim')
 Plug('https://github.com/polirritmico/monokai-nightasty.nvim')
+Plug('https://github.com/Naplin/neonplasma')
 
 vim.call('plug#end')

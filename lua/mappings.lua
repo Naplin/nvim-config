@@ -67,11 +67,20 @@ filetype = vim.bo.filetype
 vim.api.nvim_create_autocmd('BufEnter',  { callback = function()
 	filename = vim.fn.expand('%')
 	filetype = vim.bo.filetype
-	local lang_interpreter = ''
-	if filetype == 'python' then
-		lang_interpreter = 'python3'
-	end
-	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..lang_interpreter..' '..filename..'<CR>'..[[<c-\><c-n>:call SwitchToTerminal()<CR>]])
+
+	local lang_interpreter = {
+		['python'] = 'python3',
+	}
+
+	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..(lang_interpreter[filetype] or '')..' '..filename..'<CR>'..[[<c-\><c-n>:call SwitchToTerminal()<CR>]])
+
+	local comment = { 
+		['python'] = [["""<CR><CR>"""<up>]],
+		['css'] = [[/*<Space><Space>*/<left><left><left>]],
+		['ocaml'] = [[(*<Space><Space>*)<left><left><left>]],
+		['lua'] = [[--<Space>]],
+	}
+	vim.keymap.set('i', '<c-c>', comment[filetype] or '')
 end })
 
 require('./colours')
@@ -111,6 +120,8 @@ vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'.._G.filetype.._G.file
 
 vim.keymap.set('n', '<c-l>', ':LightToggle<CR>')
 vim.keymap.set('i', '<c-l>', '<Esc>:LightToggle<CR>')
+
+vim.keymap.set('n', 'vv', 'viw')
 
 -- Terminal go back to normal mode
 -- tnoremap <Esc> <C-\><C-n>

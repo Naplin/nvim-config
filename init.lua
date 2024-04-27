@@ -4,7 +4,7 @@ require('lsp.lspconfig')
 require('completions')
 require('lualine').setup()
 
-vim.cmd.colorscheme('oxocarbon')
+vim.cmd.colorscheme('neonplasma')
 
 vim.cmd([[
 
@@ -12,6 +12,7 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable
 set ignorecase
+set smartcase
 set number
 set autoindent
 set tabstop=4
@@ -23,7 +24,7 @@ inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
-inoremap { {}<left>
+inoremap { {<Space><Space>}<left><left>
 " inoremap {<CR> {<CR>}<ESC>O
 " inoremap {;<CR> {<CR>};<ESC>O
 
