@@ -36,6 +36,8 @@ set foldexpr=nvim_treesitter#foldexpr()
 let g:Terminal_CloseOnEnd = 1
 let g:Terminal_SendFileKey = '<F9>'
 
+let NERDTreeIgnore=['\.pdf$', '\~$']
+
 function! Init()
 	call TermToggle(12)
 	NERDTreeToggle
@@ -50,4 +52,3 @@ endfunction
 autocmd VimEnter * call Init()
 
 ]])
-
