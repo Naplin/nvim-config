@@ -8,7 +8,8 @@ let g:file_win = 2
 let g:tree_win = 1
 
 function! TermToggle(height)
-    if win_gotoid(g:term_win)
+    NERDTreeToggle
+	if win_gotoid(g:term_win)
         hide
     else
         botright new
@@ -25,6 +26,8 @@ function! TermToggle(height)
         startinsert!
         let g:term_win = win_getid()
     endif
+	NERDTreeToggle
+	wincmd 2 w
 endfunction
 
 function! Close()
@@ -49,7 +52,6 @@ function! SwitchToTerminal()
 endfunction
 
 function! SwitchToTree()
-	echo "switching to tree"
 	if win_getid() == win_getid(1)
 		wincmd 2 w
 		"startinsert!
@@ -100,7 +102,7 @@ vim.keymap.set('i', '<c-t>', '<esc>:call SwitchToTerminal()<CR>')
 vim.keymap.set('t', '<c-t>', [[<c-\><c-n>:call SwitchToTerminal()<CR>]])
 
 -- Switch to tree <f>
-vim.keymap.set('n', 'f', ':call SwitchToTree()<CR>')
+vim.keymap.set('n', '<c-f>', ':call SwitchToTree()<CR>')
 vim.keymap.set('i', '<c-f>', '<esc>:call SwitchToTree()<CR>')
 vim.keymap.set('t', '<c-f>', [[<c-\><c-n>:call SwitchToTree()<CR>]])
 
@@ -123,7 +125,7 @@ vim.keymap.set('t', '<c-s>', [[<c-\><c-n>:call Save()<CR>]])
 vim.keymap.set('n', '<c-T>', ':call TermToggle(12)<CR>')
 
 -- Toggle NerdTree buffer <ctrl-shit-f>
-vim.keymap.set('n', '<c-F>', ':NERDTreeToggle<CR>')
+-- vim.keymap.set('n', '<c-F>', ':NERDTreeToggle<CR>')
 
 -- Delete whole word <ctrl-backspace> 
 vim.keymap.set('i', '<c-h>', '<c-w>')
