@@ -64,33 +64,50 @@ endfunction
 ]])
 
 
--- =================================================================================================
+-- *===============================================================================================*
 -- Language-dependant mappings (console execution, comments...)
--- =================================================================================================
+-- *===============================================================================================*
 
-filename = vim.fn.expand('%')
-filetype = vim.bo.filetype
+vim.cmd([[
+function! UtopStart()
+	wincmd 3 w
+	terminal utop
+	call SwitchToTerminal()
+endfunction
+]])
+
+Filename = vim.fn.expand('%')
+Filetype = vim.bo.filetype
 
 vim.api.nvim_create_autocmd('BufEnter',  { callback = function()
-	filename = vim.fn.expand('%')
-	filetype = vim.bo.filetype
+	Filename = vim.fn.expand('%')
+	Filetype = vim.bo.filetype
 
 	local lang_interpreter = {
-		['python'] = 'python3',
+		['python'] = 'python3 '..Filename,
+		['ocaml'] = 'utop',
 	}
 
-	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..(lang_interpreter[filetype] or '')..' '..filename..'<CR>'..[[<c-\><c-n>:call SwitchToTerminal()<CR>]])
+	local lang_cmd = {
+		['ocaml'] = [[#use "]]..Filename..[[";;]],
+	}
 
-	local comment_line = '================================================================================================='
+	vim.keymap.set('n', '<f4>', ':wincmd 3 w<CR>i'..(lang_cmd[Filetype] or '')..'<CR>')
+
+	vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'..(lang_interpreter[Filetype] or '')..'<CR>'..[[<c-\><c-n>:call SwitchToTerminal()<CR>]])
+
+	local comment_line = '*===============================================================================================*'
 	local comment = {
 		['python'] = [["""<CR><CR>"""<up>]],
 		['css'] = [[/*<Space><Space>*/<left><left><left>]],
 		['ocaml'] = [[(*<Space><Space>*)<left><left><left>]],
 		['lua'] = [[--<Space>]],
 	}
-	vim.keymap.set('i', '<c-c>', comment[filetype] or '')
-	vim.keymap.set('n', 'cc', 'i'..(comment[filetype] or '')..comment_line)
+	vim.keymap.set('i', '<c-c>', comment[Filetype] or '')
+	vim.keymap.set('n', 'cc', 'i'..(comment[Filetype] or '')..comment_line)
 end })
+
+-- *===============================================================================================*
 
 -- Colourscheme light mode toggle
 require('./colours')
@@ -122,7 +139,7 @@ vim.keymap.set('i', '<c-s>', '<esc>:call Save()<CR>')
 vim.keymap.set('t', '<c-s>', [[<c-\><c-n>:call Save()<CR>]])
 
 -- Toggle terminal buffer <ctrl-shift-t>
-vim.keymap.set('n', '<c-T>', ':call TermToggle(12)<CR>')
+vim.keymap.set('n', '<c-T>', [[:call TermToggle(12)<CR>]])
 
 -- Toggle NerdTree buffer <ctrl-shit-f>
 -- vim.keymap.set('n', '<c-F>', ':NERDTreeToggle<CR>')
@@ -138,7 +155,7 @@ vim.keymap.set('t', '<Esc>', [[<c-\><c-n>:call SwitchToTerminal()<CR>]])
 vim.keymap.set('n', '<Esc>', [[:wincmd 2 w<CR>]])
 
 -- Initialise F5 shortcut
-vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'.._G.filetype.._G.filename..'<CR>')
+vim.keymap.set('n', '<f5>', ':call SwitchToTerminal()<CR>'.._G.Filetype.._G.Filename..'<CR>')
 
 -- Light mode toggle <ctrl-l>
 vim.keymap.set('n', '<c-l>', ':LightToggle<CR>')
